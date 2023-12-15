@@ -37,7 +37,7 @@ function rollDice(index) { //funktion för tärningskastet
     if (diceSaved[index] == false) { //om tärningen på index i array är falsk
         const value = diceRoll(1, 6);
         currentDices[index] = value;
-        document.getElementById("die-" + (index + 1)).src = "/images/dice" + value + ".png";
+        document.getElementById("die-" + (index + 1)).src = "images/dice" + value + ".png";
     }
 }
 
