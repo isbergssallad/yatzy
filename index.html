@@ -8,7 +8,190 @@
     <title>Yatzy</title>
 </head>
 <body>
+    <div class="header">
+        <h1 class="header-title">YATZY</h1> 
+        <!-- text wiggle with different color relating to yatzy -->
+    </div>
+
+    <div class="nav">
+        <ul>
+            <li><a href="#highscore">Highscore</a></li>
+            <li><a href="#rules">Rules</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+    </div>
+
+    <div class="main">
+        <div class="game-container">
+            <div class="game-board"> 
+                <div class="dice-container" id="player-2-container"></div>
+                <div class="instructions-container">
+                    
+                </div>
+                <div id="play-area">
+                </div>
+                <div class="dice-and-roll-btn">
+                    <button id="roll" class="roll-button">ROLL</button>
+                    <div class="dice-container" id="player-1-container">
+                        <div class="dice">
+                            <img src="/images/dice1.png" id="die-1">
+                        </div>
+                        <div class="dice">
+                            <img src="/images/dice2.png" id="die-2">
+                        </div>
+                        <div class="dice">
+                            <img src="/images/dice3.png" id="die-3">
+                        </div>
+                        <div class="dice">
+                            <img src="/images/dice4.png" id="die-4">
+                        </div>
+                        <div class="dice">
+                            <img src="/images/dice5.png" id="die-5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="score-table" cellspacing="0">
+                    <tr>
+                        <th></th>
+                        <th>Player 1</th>
+                    </tr>
+                    <tr>
+                        <th>Ones</th>
+                        <td id="ones-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Twos</th>
+                        <td id="twos-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Threes</th>
+                        <td id="threes-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Fours</th>
+                        <td id="fours-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Fives</th>
+                        <td id="fives-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Sixes</th>
+                        <td id="sixes-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Sum</th>
+                        <td id="sum-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Bonus</th>
+                        <td id="bonus-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Three of a kind</th>
+                        <td id="three-of-kind-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Four of a kind</th>
+                        <td id="four-of-kind-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Full house</th>
+                        <td id="full-house-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Small straight</th>
+                        <td id="small-straight-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Large straight</th>
+                        <td id="large-straight-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Chance</th>
+                        <td id="chance-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Yahtzee</th>
+                        <td id="yahtzee-player1"></td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td id="total-player1"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="highscore-rules-container">
+            <div class="highscore">
+                <table id="highscore-table" cellspacing="0">
+                    <tr>
+                        <td colspan="2">Highscore</td> 
+                    </tr>
+                    <tr>
+                        <th>1. </th>
+                        <td id="highscore-1"></td>
+                    </tr>
+                    <tr>
+                        <th>2. </th>
+                        <td id="highscore-2"></td>
+                    </tr>
+                    <tr>
+                        <th>3. </th>
+                        <td id="highscore-3"></td>
+                    </tr>
+                    <tr>
+                        <th>4. </th>
+                        <td id="highscore-4"></td>
+                    </tr>
+                    <tr>
+                        <th>5. </th>
+                        <td id="highscore-5"></td>
+                    </tr>
+                    <tr>
+                        <th>6. </th>
+                        <td id="highscore-6"></td>
+                    </tr>
+                    <tr>
+                        <th>6. </th>
+                        <td id="highscore-7"></td>
+                    </tr>
+                    <tr>
+                        <th>8. </th>
+                        <td id="highscore-8"></td>
+                    </tr>
+                    <tr>
+                        <th>9. </th>
+                        <td id="highscore-9"></td>
+                    </tr>
+                    <tr>
+                        <th>10. </th>
+                        <td id="highscore-10"></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="rules">
+                <h1>Rules</h1>
+                <p>Certain rules of this game are based on <a href="https://www.hasbro.com/common/documents/dad2af551c4311ddbd0b0800200c9a66/8302f43150569047f57eb8d746ba9d86.pdf">this</a> rules sheet by Hasbro games.</p>
+                <h3>How to win</h3>
+                <p>Roll dice to get the highest score</p>
+                <h3>Basic rules</h3>
+                <p>1. Roll your dice to rack up the best possible score. <br>
+                2. Decide which dice combo you’re going for. <br>
+                3. After each turn, write your score in one empty box on the score card</p>
+                <h3>How to play</h3>
+                <p>Roll up to 2 times each turn. <br>
+                Fill in one empty box in the column under your name each turn.</p>
+            </div>
+        </div>
+
+    </div>
+
     
     
 </body>
+<script src="script.js"></script>
 </html>
