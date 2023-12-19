@@ -67,6 +67,9 @@ th, td {
 
 .instructions-container {
     height: 60px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1.5px solid black
 }
 
 .game-board {
