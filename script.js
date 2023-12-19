@@ -85,6 +85,7 @@ function gameOver(){
 
     //submit knapp för input field
     var highscoreSubmitButton = document.createElement("button");
+    highscoreSubmitButton.textContent = "Enter"
 
     //egenskaper för knappen
     highscoreSubmitButton.onclick = function(){
