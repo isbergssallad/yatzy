@@ -25,6 +25,8 @@ const savedColor = "rgb(181, 181, 181)";
 
 var gameOverState = false;
 
+var test = true
+
 
 //funktion för vad som händer när en "kategori" klickas, tar in ett elementId, poängen, och ett index för state_player1
 function handleCategoryClick (elementId, score, index){
@@ -65,20 +67,39 @@ function handleCategoryClick (elementId, score, index){
     }
 }
 
+
+var usernameInput = ""
 //funktion när spelet är över
 function gameOver(){
     //stänger av roll knappen
     document.getElementById("roll").disabled = true; //stänger av roll knappen
     
-    document.getElementById("instructions").innerHTML = "You got a total of " + score + " points. Type your username in the field below."
+    document.getElementById("instructions").innerHTML = "You got a total of " + totalScore_player1 + " points. <br /> Type your username in the field below."
 
-    //
-    var usernameInput = document.createElement("input");
-    usernameInput.setAttribute('type', 'text');
-    usernameInput.setAttribute('value', 'Type Username'); 
-    usernameInput.className("username-input") 
+    //input field för användarnamn
+    var usernameInputField = document.createElement("input");
 
-    document.getElementById("play-area").appendChild(usernameInput)
+    //input field egenskaper
+    usernameInputField.setAttribute('type', 'text');
+    usernameInputField.setAttribute('placeholder', 'Type Username'); 
+
+    //submit knapp för input field
+    var highscoreSubmitButton = document.createElement("button");
+
+    //egenskaper för knappen
+    highscoreSubmitButton.onclick = function(){
+        //gör en variabel för att "spara" username som spelaren skriver in
+        usernameInput = usernameInputField.value;
+        saveHighscore();
+    }
+
+    //skapar klass namn för att kunna ändra css
+    usernameInputField.className = "username-input";
+    highscoreSubmitButton.className = "btn";
+    
+
+    document.getElementById("play-area").appendChild(usernameInputField);
+    document.getElementById("play-area").appendChild(highscoreSubmitButton);
 }
 
 
@@ -309,10 +330,10 @@ document.getElementById("roll").onclick = function() {
             console.log(currentDices)
         };
 
-        rolls--; //Minskar antalet tärningskast
+        //Minskar antalet tärningskast
+        rolls--;
 
         playerInstructions();
-        // checkTotal();
         
     } else {
         //spelaren måste välja en cell innan de får rulla igen
