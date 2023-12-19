@@ -1,12 +1,12 @@
 //funktion för att räkna ihop ett värde i poängtabellen
-function checkValues(array, value){
+function countDicesOfSameValue(array, value){
     var count = 0;
     for(i = 0; i < array.length; i++){
         if(array[i] == value){count+=value}
     }
     //hindrar det att visa 0 i rutan om inga 2 nollor kastas.
     if (count == 0){
-        return "";
+        return 0;
     }
     else {
         return count;
@@ -31,7 +31,7 @@ function checkThreeOfAKind(array) {
       }
     }
   
-    return "";
+    return 0;
 }
 
 //funktion för fyra i rad
@@ -50,7 +50,7 @@ function checkFourOfAKind(array) {
       }
     }
   
-    return "";
+    return 0;
 }
 
 
@@ -67,7 +67,7 @@ function checkSmallStraight(array){
     if (sortedArray.includes("1234") || sortedArray.includes("2345") || sortedArray.includes("3456")) {
         return 30;
     } else {
-        return "";
+        return 0;
     }
 }
 
@@ -82,7 +82,7 @@ function checkLargeStraight(array) {
     if (value.includes("12345") || value.includes("23456")) {
         return 40;
     } else {
-        return "";
+        return 0;
     }
 }
 
@@ -96,7 +96,7 @@ function checkFullHouse(array){
     if (value[0] == value[1] && value[2] == value[4] || value[0] == value[2] && value[3] == value[4]){
         return 25;
     } else {
-        return "";
+        return 0;
     }
 }
 
@@ -127,7 +127,7 @@ function checkYahtzee(array) {
             return 50;
         }
     }
-    return "";
+    return 0;
 }
 
 

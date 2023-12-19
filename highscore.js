@@ -18,8 +18,8 @@ function displayHighscores(){
         var entry = highscoreBoard[i];
         var [username, score] = entry.split(' - ');
         console.log("Username: " + username + ", Score: " + score);
-        document.getElementById("username-" + i).textContent += username;
-        document.getElementById("highscore-" + i).innerHTML = score;
+        document.getElementById("username-" + (i + 1)).textContent = ( i + 1 ) + ". " + username;
+        document.getElementById("highscore-" + (i + 1)).innerHTML = score;
     }
 }
 
