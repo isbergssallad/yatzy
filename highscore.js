@@ -2,11 +2,12 @@
 var previousHighscoreBoard = JSON.parse(localStorage.getItem("highscores"));
 var highscoreBoard = previousHighscoreBoard;
 
-if (highscoreBoard == ""){
+//om highscoreBoard är null, vilket betyder att spelaren har inte sparat några poäng ännu
+if (!highscoreBoard){
     highscoreBoard = []
 }
 
-//sparar highscoreBoard som JSON-sträng till localStorage 
+//sparar highscoreBoard som JSON-sträng till localStorage, eftersom localStorage bara kan innehålla strängar
 localStorage.setItem('highscores', JSON.stringify(highscoreBoard));
 
 
