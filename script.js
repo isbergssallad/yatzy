@@ -29,7 +29,7 @@ class GameState{
         }
 
         //en array för att visa tärningars state
-        this.savedDices = Array(5).fill(false)
+        this.savedDices = Array(5).fill(false);
 
         //variabel för antalet tärningskast
         this.rolls = 3;
@@ -60,7 +60,7 @@ class GameState{
 }
 
 //starta en ny runda av spelet
-var round = new GameState()
+var round = new GameState();
 
 
 //variabel för gråa färgen när en ruta sparas på poängtabellen.
@@ -79,14 +79,13 @@ function handleCategoryClick (elementId, score, category){
             document.getElementById(elementId).style.backgroundColor = savedColor;
 
             //kör updateBonus() funktion om kategorin matchar, förhindrar funktionen från att köras vid fel kategorier.
-            const upperSectionCategories = ["ones", "twos", "threes", "fours", "fives", "sixes"]
+            const upperSectionCategories = ["ones", "twos", "threes", "fours", "fives", "sixes"];
             if (upperSectionCategories.includes(category)){
                 updateBonus();
             }
             
-
+            //lägger score till i totala poängen
             round.totalScore += score;
-            console.log(round.totalScore)
             
 
             //gör variabel till det motsatta
@@ -97,8 +96,8 @@ function handleCategoryClick (elementId, score, category){
             //om varje kategori har valt
             if (Object.values(round.scoreCategories).every((value) => value.saved === true)) {
                 round.ended = true;
-                document.getElementById("total-score").innerHTML = round.totalScore
-                gameOver()
+                document.getElementById("total-score").innerHTML = round.totalScore;
+                gameOver();
             }
         }
     }
@@ -111,7 +110,7 @@ function gameOver(){
     //stänger av roll knappen
     document.getElementById("roll").disabled = true; //stänger av roll knappen
     
-    document.getElementById("instructions").innerHTML = "You got a total of " + round.totalScore + " points. <br /> Type your username in the field below."
+    document.getElementById("instructions").innerHTML = "You got a total of " + round.totalScore + " points. <br /> Type your username in the field below.";
 
     //input field för användarnamn
     var usernameInputField = document.createElement("input");
@@ -122,13 +121,13 @@ function gameOver(){
 
     //submit knapp för input field
     var highscoreSubmitButton = document.createElement("button");
-    highscoreSubmitButton.textContent = "Enter"
+    highscoreSubmitButton.textContent = "Enter";
 
     //egenskaper för knappen
     highscoreSubmitButton.onclick = function(){
         //gör en variabel för att "spara" username som spelaren skriver in
         saveHighscore(usernameInputField.value);
-        document.location.reload()
+        document.location.reload();
     }
 
     //skapar klass namn för att kunna ändra css
@@ -146,18 +145,18 @@ function gameOver(){
 
 //ettor
 document.getElementById("ones-score").onclick = function(){
-    handleCategoryClick("ones-score", round.scoreCategories.ones.score, "ones")
+    handleCategoryClick("ones-score", round.scoreCategories.ones.score, "ones");
 }
 
 
 //tvåor
 document.getElementById("twos-score").onclick = function(){
-    handleCategoryClick("twos-score", round.scoreCategories.twos.score, "twos")
+    handleCategoryClick("twos-score", round.scoreCategories.twos.score, "twos");
 }
 
 //treor
 document.getElementById("threes-score").onclick = function(){
-    handleCategoryClick("threes-score", round.scoreCategories.threes.score, "threes")
+    handleCategoryClick("threes-score", round.scoreCategories.threes.score, "threes");
 }
 
 

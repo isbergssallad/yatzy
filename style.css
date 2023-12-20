@@ -3,14 +3,23 @@
     padding: 0;
 }
 
+.page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .main {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 table {
     border: 1px solid black;
     background-color: white;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 th, td {
@@ -66,7 +75,7 @@ th, td {
 }
 
 .instructions-container {
-    height: 60px;
+    height: 65px;
     background-color: white;
     border-radius: 10px;
     border: 1.5px solid black
@@ -75,8 +84,9 @@ th, td {
 .game-board {
     display: flex;
     flex-direction: column;
+    align-content: center;
+    justify-content: center;
     height: 100%;
-    vertical-align: bottom;
 }
 
 .roll-button {
@@ -110,9 +120,6 @@ th, td {
     height: 350px
 }
 
-#player-2-container{
-    height: 93.2px;
-}
 
 
 .highscore-rules-container{
@@ -121,10 +128,16 @@ th, td {
     width: 840px;
     height: auto;
     justify-content: space-between;
+    gap: 20px;
+}
+
+.highscore{
+    height: fit-content;
 }
 
 .highscore table{
     width: 350px;
+
 }
 
 .highscore th {
@@ -132,7 +145,10 @@ th, td {
 }
 
 .rules {
+    display: flex;
+    flex-direction: column;
     width: auto;
     height: auto;
     word-wrap: break-word;
+    gap: 10px;
 }
