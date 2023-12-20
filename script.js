@@ -6,6 +6,8 @@ class GameState{
         this.ended = false;
         this.totalScore = 0;
 
+        this.currentDices = Array(5).fill(0)
+
         //objekt som innehåller olika kategorier med poäng och "state"
         //förbättring av koden, används en objekt istället för 13 globala variabler
         this.scoreCategories = {
@@ -26,33 +28,39 @@ class GameState{
             yahtzee: {score: 0, saved: false},
         }
 
+        //en array för att visa tärningars state
+        this.savedDices = Array(5).fill(false)
 
-        //en array som kollar hur många "kategorier" spelaren har bockat av.
-        this.scoreCategorySaved = Array(13).fill(false);
+        //variabel för antalet tärningskast
+        this.rolls = 3;
+
+        //upper section i yatzy är alla från ettor till sexor. dessa variabler håller reda på de poängen och summa av de.
+        this.upperSectionSum = 0;
+
+        //variabel för att kolla om spelaren har valt en cell
+        this.didPlayerCheckCell = false;
 
     }
-
+    //currentDices kommer från instansen av game state. vilket betyder varje metod som finns inom den kan använda this. i denna fall för att kunna använda currentDices
+    //tar en parameter mindre än förr, förkortning.
+    //funktion för att räkna ihop ett värde i poängtabellen
+    countDicesOfSameValue(value){
+        var count = 0;
+        for(i = 0; i < this.currentDices.length; i++){
+            if(this.currentDices[i] == value){count+=value}
+        }
+        //hindrar det att visa 0 i rutan om inga 2 nollor kastas.
+        if (count == 0){
+            return 0;
+        }
+        else {
+            return count;
+        }
+}
 }
 
+//starta en ny runda av spelet
 var round = new GameState()
-
-
-
-
-var currentDices = [0, 0, 0, 0, 0];
-
-
-//upper section i yatzy är alla från ettor till sexor. dessa variabler håller reda på de poängen och summa av de.
-var upperSectionSum = 0;
-
-
-//variabel för antalet tärningskast
-var rolls = 3;
-
-
-
-//variabel för att kolla om spelaren har valt en cell
-var didPlayerCheckCell = false;
 
 
 //variabel för gråa färgen när en ruta sparas på poängtabellen.
@@ -60,20 +68,21 @@ const savedColor = "rgb(181, 181, 181)";
 
 
 
-var test = true
-
 
 //funktion för vad som händer när en "kategori" klickas, tar in ett elementId, poängen, och ett kategori
 function handleCategoryClick (elementId, score, category){
-    if (didPlayerCheckCell == false){
+    if (round.didPlayerCheckCell == false){
         if (round.scoreCategories[category].saved == false){
              //sätter det kategoriet till "true"
              round.scoreCategories[category].saved = true;
 
             document.getElementById(elementId).style.backgroundColor = savedColor;
 
-            //kör updateBonus() funktion för att kolla om spelaren har fått bonus
-            updateBonus()
+            //kör updateBonus() funktion om kategorin matchar, förhindrar funktionen från att köras vid fel kategorier.
+            const upperSectionCategories = ["ones", "twos", "threes", "fours", "fives", "sixes"]
+            if (upperSectionCategories.includes(category)){
+                updateBonus();
+            }
             
 
             round.totalScore += score;
@@ -81,10 +90,8 @@ function handleCategoryClick (elementId, score, category){
             
 
             //gör variabel till det motsatta
-            didPlayerCheckCell = !didPlayerCheckCell;
+            round.didPlayerCheckCell = !round.didPlayerCheckCell;
 
-            //gör att spelare inte kan spara tärningar efter att ha valt en cell
-            diceSaveReset()
 
             //object.values ger en array av alla värden för ett objekt
             //om varje kategori har valt
@@ -98,7 +105,7 @@ function handleCategoryClick (elementId, score, category){
 }
 
 
-var usernameInput = ""
+
 //funktion när spelet är över
 function gameOver(){
     //stänger av roll knappen
@@ -120,8 +127,8 @@ function gameOver(){
     //egenskaper för knappen
     highscoreSubmitButton.onclick = function(){
         //gör en variabel för att "spara" username som spelaren skriver in
-        usernameInput = usernameInputField.value;
-        saveHighscore();
+        saveHighscore(usernameInputField.value);
+        document.location.reload()
     }
 
     //skapar klass namn för att kunna ändra css
@@ -132,6 +139,9 @@ function gameOver(){
     document.getElementById("play-area").appendChild(usernameInputField);
     document.getElementById("play-area").appendChild(highscoreSubmitButton);
 }
+
+
+
 
 
 //ettor
@@ -214,12 +224,11 @@ function displayScore(scoreCategory) {
 }
 
 
-var diceSaved = [false, false, false, false, false]
-
 //funktion som gör att alla tärningar är inte sparade längre. finns för att hindra spelare från att spara mellan runder. ie spara tärning efter man har valt en cell.
 function diceSaveReset(){
-    for (let i = 0; i < diceSaved.length; i++){
-        diceSaved[i] = false;
+    for (let i = 0; i < round.savedDices.length; i++){
+        round.savedDices[i] = false;
+        document.getElementById("die-" + (i + 1)).style.filter = "brightness(1)"; 
     }
 }
 
@@ -228,8 +237,8 @@ function diceSaveReset(){
 
 //funktion för att visa instruktion till spelaren.
 function playerInstructions(){
-    if (rolls > 0){
-        document.getElementById("instructions").innerHTML = "You have " + rolls + " rolls remaining.";
+    if (round.rolls > 0){
+        document.getElementById("instructions").innerHTML = "You have " + round.rolls + " rolls remaining.";
     } else {
         document.getElementById("instructions").innerHTML = "Select a cell on the scoreboard.";
     }
@@ -238,7 +247,7 @@ function playerInstructions(){
 
 document.getElementById("roll").onclick = function() {
     //får bara kasta tärningar om antalet kast är större än 0 och spelaren inte valt en poäng cell.
-    if (rolls > 0 && didPlayerCheckCell == false){
+    if (round.rolls > 0 && round.didPlayerCheckCell == false){
         rollDice(0);
         rollDice(1);
         rollDice(2);
@@ -246,125 +255,125 @@ document.getElementById("roll").onclick = function() {
         rollDice(4);
 
 
-        console.log(diceSaved)
-        console.log("currentDices: " + currentDices)
+        console.log(round.savedDices)
+        console.log("round.currentDices: " + round.currentDices)
 
 
         if (round.scoreCategories.ones.saved == false) {
-            round.scoreCategories.ones.score = countDicesOfSameValue(currentDices, 1)
+            round.scoreCategories.ones.score = round.countDicesOfSameValue(1);
             document.getElementById("ones-score").innerHTML = displayScore(round.scoreCategories.ones);
             // console.log(onesScore)
         }
 
 
         if (round.scoreCategories.twos.saved == false) {
-            round.scoreCategories.twos.score = countDicesOfSameValue(currentDices, 2)
+            round.scoreCategories.twos.score = round.countDicesOfSameValue(2);
             document.getElementById("twos-score").innerHTML = displayScore(round.scoreCategories.twos);
             // console.log(twosScore)
         }
 
         if (round.scoreCategories.threes.saved == false){
-            round.scoreCategories.threes.score = countDicesOfSameValue(currentDices, 3)
+            round.scoreCategories.threes.score = round.countDicesOfSameValue(3);
             document.getElementById("threes-score").innerHTML = displayScore(round.scoreCategories.threes);
             // console .log(threesScore)
         }
 
         if (round.scoreCategories.fours.saved == false){
-            round.scoreCategories.fours.score = countDicesOfSameValue(currentDices, 4)
+            round.scoreCategories.fours.score = round.countDicesOfSameValue(4);
             document.getElementById("fours-score").innerHTML = displayScore(round.scoreCategories.fours);
             // console.log(foursScore)
         }
 
         if (round.scoreCategories.fives.saved == false){
-            round.scoreCategories.fives.score = countDicesOfSameValue(currentDices, 5)
+            round.scoreCategories.fives.score = round.countDicesOfSameValue(5);
             document.getElementById("fives-score").innerHTML = displayScore(round.scoreCategories.fives);
             // console.log(fivesScore)
         }
 
 
         if (round.scoreCategories.sixes.saved == false){
-            round.scoreCategories.sixes.score = countDicesOfSameValue(currentDices, 6)
+            round.scoreCategories.sixes.score = round.countDicesOfSameValue(6);
             document.getElementById("sixes-score").innerHTML = displayScore(round.scoreCategories.sixes);
             // console.log(sixesScore)
         }
 
         if (round.scoreCategories.threeOfAKind.saved == false){
-            round.scoreCategories.threeOfAKind.score = checkThreeOfAKind(currentDices)
-            document.getElementById("three-of-kind-score").innerHTML = displayScore(round.scoreCategories.threeOfAKind)
+            round.scoreCategories.threeOfAKind.score = checkThreeOfAKind(round.currentDices);
+            document.getElementById("three-of-kind-score").innerHTML = displayScore(round.scoreCategories.threeOfAKind);
             // console.log(threeOfAKindScore)
         }
 
         if (round.scoreCategories.fourOfAKind.saved == false){
-            round.scoreCategories.fourOfAKind.score = checkFourOfAKind(currentDices)
-            document.getElementById("four-of-kind-score").innerHTML = displayScore(round.scoreCategories.fourOfAKind)
+            round.scoreCategories.fourOfAKind.score = checkFourOfAKind(round.currentDices);
+            document.getElementById("four-of-kind-score").innerHTML = displayScore(round.scoreCategories.fourOfAKind);
             // console.log(fourOfAKindScore)
         }
 
         if (round.scoreCategories.fullHouse.saved == false){
-            round.scoreCategories.fullHouse.score = checkFullHouse(currentDices)
-            document.getElementById("full-house-score").innerHTML = displayScore(round.scoreCategories.fullHouse)
+            round.scoreCategories.fullHouse.score = checkFullHouse(round.currentDices);
+            document.getElementById("full-house-score").innerHTML = displayScore(round.scoreCategories.fullHouse);
         }
 
         if (round.scoreCategories.smallStraight.saved == false){
-            round.scoreCategories.smallStraight.score = checkSmallStraight(currentDices)
-            document.getElementById("small-straight-score").innerHTML = displayScore(round.scoreCategories.smallStraight)
+            round.scoreCategories.smallStraight.score = checkSmallStraight(round.currentDices);
+            document.getElementById("small-straight-score").innerHTML = displayScore(round.scoreCategories.smallStraight);
             // console.log(smallStraightScore)
         }
 
         if (round.scoreCategories.largeStraight.saved == false){
-            round.scoreCategories.largeStraight.score = checkLargeStraight(currentDices)
-            document.getElementById("large-straight-score").innerHTML = displayScore(round.scoreCategories.largeStraight)
+            round.scoreCategories.largeStraight.score = checkLargeStraight(round.currentDices);
+            document.getElementById("large-straight-score").innerHTML = displayScore(round.scoreCategories.largeStraight);
             // console.log(largeStraighScore)
         }
 
         if (round.scoreCategories.chance.saved == false){
-            round.scoreCategories.chance.score = checkChance(currentDices)
-            document.getElementById("chance-score").innerHTML = displayScore(round.scoreCategories.chance)
+            round.scoreCategories.chance.score = checkChance(round.currentDices);
+            document.getElementById("chance-score").innerHTML = displayScore(round.scoreCategories.chance);
         }
 
         if (round.scoreCategories.yahtzee.saved == false){
-            round.scoreCategories.yahtzee.score = checkYahtzee(currentDices)
-            document.getElementById("yahtzee-score").innerHTML = displayScore(round.scoreCategories.yahtzee)
+            round.scoreCategories.yahtzee.score = checkYahtzee(round.currentDices);
+            document.getElementById("yahtzee-score").innerHTML = displayScore(round.scoreCategories.yahtzee);
         }
 
 
         //tärningarna onclick
         document.getElementById("die-1").onclick = function () {
             handleDiceClick(0);
-            console.log(currentDices)
+            console.log(round.currentDices)
         };
 
         document.getElementById("die-2").onclick = function () {
             handleDiceClick(1);
-            console.log(currentDices)
+            console.log(round.currentDices)
         };
 
         document.getElementById("die-3").onclick = function () {
             handleDiceClick(2);
-            console.log(currentDices)
+            console.log(round.currentDices)
         };
 
         document.getElementById("die-4").onclick = function () {
             handleDiceClick(3);
-            console.log(currentDices)
+            console.log(round.currentDices)
         };
 
         document.getElementById("die-5").onclick = function () {
             handleDiceClick(4);
-            console.log(currentDices)
+            console.log(round.currentDices)
         };
 
         //Minskar antalet tärningskast
-        rolls--;
+        round.rolls--;
 
         playerInstructions();
         
     } else {
         //spelaren måste välja en cell innan de får rulla igen
-        if (didPlayerCheckCell){
-            rolls = 3;
+        if (round.didPlayerCheckCell){
+            round.rolls = 3;
             diceSaveReset(); 
-            didPlayerCheckCell = false;
+            round.didPlayerCheckCell = false;
             document.getElementById("roll").click();
         }
     }

@@ -26,9 +26,9 @@ function displayHighscores(){
 
 
 //funktion för att spara highscore
-function saveHighscore() {
+function saveHighscore(username) {
     //skapar en ny highscore "entry" med användarnamn och poäng
-    var newHighscore = usernameInput + " - " + round.totalScore;
+    var newHighscore = username + " - " + round.totalScore;
 
     //lägger till den nya highscore
     highscoreBoard.push(newHighscore);

@@ -5,9 +5,9 @@ function diceRoll(min, max) {
 
 
 function rollDice(index) { //funktion för tärningskastet
-    if (diceSaved[index] == false) { //om tärningen på index i array är falsk
+    if (round.savedDices[index] == false) { //om tärningen på index i array är falsk
         const value = diceRoll(1, 6);
-        currentDices[index] = value;
+        round.currentDices[index] = value;
         document.getElementById("die-" + (index + 1)).src = "images/dice" + value + ".png";
     }
 }
@@ -16,6 +16,11 @@ function rollDice(index) { //funktion för tärningskastet
 //funktion till när en tärning klickas
 function handleDiceClick(index) {
     //gör värdet i index motsattsen, ex. sant blir falsk och tvärtom 
-    diceSaved[index] = !diceSaved[index];
+    round.savedDices[index] = !round.savedDices[index];
+    if (round.savedDices[index] == true){
+        document.getElementById("die-" + (index + 1)).style.filter = "brightness(0.6)"; 
+    } else {
+        document.getElementById("die-" + (index + 1)).style.filter = "brightness(1)"; 
+    }
 }
 

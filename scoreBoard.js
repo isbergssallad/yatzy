@@ -1,17 +1,4 @@
-//funktion för att räkna ihop ett värde i poängtabellen
-function countDicesOfSameValue(array, value){
-    var count = 0;
-    for(i = 0; i < array.length; i++){
-        if(array[i] == value){count+=value}
-    }
-    //hindrar det att visa 0 i rutan om inga 2 nollor kastas.
-    if (count == 0){
-        return 0;
-    }
-    else {
-        return count;
-    }
-}
+
 
 
 
@@ -141,13 +128,13 @@ function updateBonus(){
 
     if (upperSectionCategories.every((state) => state.saved === true)){
         for (let i = 0; i < upperSectionCategories.length; i++){
-            upperSectionSum += upperSectionCategories[i].score;
-            console.log("upper scores: " + upperSectionSum)
+            round.upperSectionSum += upperSectionCategories[i].score;
+            console.log("upper scores: " + round.upperSectionSum)
         }
 
-        document.getElementById("sum-score").innerHTML = upperSectionSum;
+        document.getElementById("sum-score").innerHTML = round.upperSectionSum;
 
-        if (upperSectionSum >= bonusThreshold){
+        if (round.upperSectionSum >= bonusThreshold){
             document.getElementById("bonus-score").innerHTML = bonusValue;
             round.totalScore += bonusValue
         } else {
