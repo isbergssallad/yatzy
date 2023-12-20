@@ -136,23 +136,22 @@ var bonusThreshold = 63;
 var bonusValue = 35;
 
 //funktion för att räkna ihop och kollar om spelaren får ett bonus
-function updateBonus(arr, index, score){
-    arr.splice(index, 1, score);
-    console.log(upperSectionScores)
+function updateBonus(){
+    const upperSectionCategories = [round.scoreCategories.ones, round.scoreCategories.twos, round.scoreCategories.threes, round.scoreCategories.fours, round.scoreCategories.fives, round.scoreCategories.sixes]
 
-    if (round.scoreCategorySaved.slice(0, 6).every((state, i) => state === true && i <= 5)){
-        for (let i = 0; i < upperSectionScores.length; i++){
-            upperSectionSum += upperSectionScores[i];
+    if (upperSectionCategories.every((state) => state.saved === true)){
+        for (let i = 0; i < upperSectionCategories.length; i++){
+            upperSectionSum += upperSectionCategories[i].score;
             console.log("upper scores: " + upperSectionSum)
         }
 
-        document.getElementById("sum-player1").innerHTML = upperSectionSum;
+        document.getElementById("sum-score").innerHTML = upperSectionSum;
 
         if (upperSectionSum >= bonusThreshold){
-            document.getElementById("bonus-player1").innerHTML = bonusValue;
+            document.getElementById("bonus-score").innerHTML = bonusValue;
             round.totalScore += bonusValue
         } else {
-            document.getElementById("bonus-player1").innerHTML = 0;
+            document.getElementById("bonus-score").innerHTML = 0;
         }
     }
 }
