@@ -1,3 +1,31 @@
+//funktion för att skapa cellen i highscore tabellen.
+function createHighscoreCells(){
+    var table = document.getElementById("highscore-table");
+
+    //loopar 20 gånger för att skapa 20 celler
+    for (let i = 0; i < 20; i++){
+        var row = document.createElement("tr");
+        var cellTitle = document.createElement("th");
+        var cellData = document.createElement("td");
+
+
+        cellTitle.setAttribute("id", ("username-" + (i + 1)));
+        cellTitle.innerHTML = (i + 1) + "."
+        cellData.setAttribute("id", ("highscore-" + (i + 1)));
+
+        row.appendChild(cellTitle);
+        row.appendChild(cellData);
+        table.appendChild(row);
+    }
+}
+
+//körs när sidan laddas
+createHighscoreCells();
+
+
+
+
+
 //hämtar tidigare highscore från localStorage och konverterar/parse till ett javascript objekt *dokumentation
 var previousHighscoreBoard = JSON.parse(localStorage.getItem("highscores"));
 var highscoreBoard = previousHighscoreBoard;
@@ -40,13 +68,13 @@ function saveHighscore(username) {
         return score2 - score1;
     });
 
-    //behåll de 10 högsta highscores
-    highscoreBoard = highscoreBoard.slice(0, 10);
+    //behåll de 20 högsta highscores
+    highscoreBoard = highscoreBoard.slice(0, 20);
 
     //uppdatera localstorage med den nya highscore lista, konvertera till strängar
     localStorage.setItem('highscores', JSON.stringify(highscoreBoard));
 
-    //kör funktionen för att visa den nya highscore om inom top 10 i HTML
+    //kör funktionen för att visa den nya highscore om inom top 20 i HTML
     displayHighscores();
 }
 

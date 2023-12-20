@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+.no-select {
+    user-select: none
+}
+
 .medium-font-size {
     font-size: 14px;
 }
@@ -122,12 +126,33 @@ th, td {
     align-items: center;
 }
 
+.username-input{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.username-input-field{
+    width: 220px;
+    height: 24px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0px;
+    outline: none;
+}
+
+.username-input-field[type=text]{
+    padding: 0px 5px;
+}
+
 .game-board {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
     height: 100%;
+    gap: 10px;
 }
 
 .roll-button {
@@ -175,6 +200,10 @@ th, td {
 }
 
 #play-area{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
     height: 350px
 }
 
@@ -209,4 +238,17 @@ th, td {
     height: auto;
     word-wrap: break-word;
     gap: 10px;
+}
+
+
+.return-to-top{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+
+.footer{
+    height: 200px;
+    width: 800px;
 }

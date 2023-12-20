@@ -40,6 +40,8 @@ class GameState{
         //variabel för att kolla om spelaren har valt en cell
         this.didPlayerCheckCell = false;
 
+        document.getElementById("instructions").innerHTML = "Start the game by clicking 'ROLL'"
+
     }
     //currentDices kommer från instansen av game state. vilket betyder varje metod som finns inom den kan använda this. i denna fall för att kunna använda currentDices
     //tar en parameter mindre än förr, förkortning.
@@ -71,7 +73,7 @@ const savedColor = "rgb(181, 181, 181)";
 
 //funktion för vad som händer när en "kategori" klickas, tar in ett elementId, poängen, och ett kategori
 function handleCategoryClick (elementId, score, category){
-    if (round.didPlayerCheckCell == false){
+    if (round.didPlayerCheckCell == false && round.rolls < 3){
         if (round.scoreCategories[category].saved == false){
              //sätter det kategoriet till "true"
              round.scoreCategories[category].saved = true;
@@ -130,13 +132,20 @@ function gameOver(){
         document.location.reload();
     }
 
+    //div för att sätta de ihop
+    var container = document.createElement("div");
+
+
     //skapar klass namn för att kunna ändra css
-    usernameInputField.className = "username-input";
+    usernameInputField.className = "username-input-field";
     highscoreSubmitButton.className = "btn";
+    container.className = "username-input"
     
 
-    document.getElementById("play-area").appendChild(usernameInputField);
-    document.getElementById("play-area").appendChild(highscoreSubmitButton);
+    container.appendChild(usernameInputField);
+    container.appendChild(highscoreSubmitButton);
+
+    document.getElementById("play-area").appendChild(container)
 }
 
 

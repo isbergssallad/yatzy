@@ -17,6 +17,7 @@ function checkThreeOfAKind(array) {
     return 0;
 }
 
+
 //funktion för fyra i rad
 function checkFourOfAKind(array) {
     for (let i = 0; i < array.length; i++) {
