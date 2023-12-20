@@ -140,7 +140,7 @@ function updateBonus(arr, index, score){
     arr.splice(index, 1, score);
     console.log(upperSectionScores)
 
-    if (state_player1.slice(0, 6).every((state, i) => state === true && i <= 5)){
+    if (round.scoreCategorySaved.slice(0, 6).every((state, i) => state === true && i <= 5)){
         for (let i = 0; i < upperSectionScores.length; i++){
             upperSectionSum += upperSectionScores[i];
             console.log("upper scores: " + upperSectionSum)
@@ -150,7 +150,7 @@ function updateBonus(arr, index, score){
 
         if (upperSectionSum >= bonusThreshold){
             document.getElementById("bonus-player1").innerHTML = bonusValue;
-            totalScore_player1 += bonusValue
+            round.totalScore += bonusValue
         } else {
             document.getElementById("bonus-player1").innerHTML = 0;
         }

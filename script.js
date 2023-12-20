@@ -1,3 +1,38 @@
+class GameState{
+    //metod? funktion som körs när man skapar en ny instans
+    //.this
+    constructor(){
+        //spelrundan avslutas
+        this.ended = false;
+        this.totalScore = 0;
+
+        //en array som kollar hur många "kategorier" spelaren har bockat av.
+        this.scoreCategorySaved = Array(13).fill(false);
+
+        this.onesScore = 0;
+        this.twosScore = 0;
+        this.threesScore = 0;
+        this.foursScore = 0;
+        this.fivesScore = 0;
+        this.sixesScore = 0;
+
+        this.threeOfAKindScore = 0;
+        this.fourOfAKindScore = 0;
+        this.fullHouseScore = 0;
+        this.smallStraightScore = 0;
+        this.largeStraightScore = 0;
+        this.chanceScore = 0;
+        this.yahtzeeScore = 0;
+        
+    }
+
+}
+
+var round = new GameState()
+
+
+
+
 var currentDices = [0, 0, 0, 0, 0];
 
 
@@ -9,21 +44,16 @@ var upperSectionSum = 0;
 //variabel för antalet tärningskast
 var rolls = 3;
 
-//variabel för att summan av poängen
-var totalScore_player1 = 0;
-
-//en array som kollar hur många "cells" spelaren har bockat av.
-var state_player1 = Array(13).fill(false);
 
 
- //variabel för att kolla om spelaren har valt en cell
+//variabel för att kolla om spelaren har valt en cell
 var didPlayerCheckCell = false;
 
 
 //variabel för gråa färgen när en ruta sparas på poängtabellen.
 const savedColor = "rgb(181, 181, 181)"; 
 
-var gameOverState = false;
+
 
 var test = true
 
@@ -31,9 +61,9 @@ var test = true
 //funktion för vad som händer när en "kategori" klickas, tar in ett elementId, poängen, och ett index för state_player1
 function handleCategoryClick (elementId, score, index){
     if (didPlayerCheckCell == false){
-        if (state_player1[index] == false){
+        if (round.scoreCategorySaved[index] == false){
              //sätter det indexet till "true"
-            state_player1[index] = true;
+            round.scoreCategorySaved[index] = true;
 
             document.getElementById(elementId).style.backgroundColor = savedColor;
 
@@ -42,8 +72,8 @@ function handleCategoryClick (elementId, score, index){
                 updateBonus(upperSectionScores, index, score)
             }
 
-            totalScore_player1 += score;
-            console.log(totalScore_player1)
+            round.totalScore += score;
+            console.log(round.totalScore)
             
 
             //gör variabel till det motsatta
@@ -53,9 +83,9 @@ function handleCategoryClick (elementId, score, index){
             diceSaveReset()
 
             //om varje kategori har valt
-            if (state_player1.every((value) => value === true)) {
-                gameOverState = true;
-                document.getElementById("total-player1").innerHTML = totalScore_player1
+            if (round.scoreCategorySaved.every((value) => value === true)) {
+                round.ended = true;
+                document.getElementById("total-player1").innerHTML = round.totalScore
                 gameOver()
             }
         }
@@ -69,7 +99,7 @@ function gameOver(){
     //stänger av roll knappen
     document.getElementById("roll").disabled = true; //stänger av roll knappen
     
-    document.getElementById("instructions").innerHTML = "You got a total of " + totalScore_player1 + " points. <br /> Type your username in the field below."
+    document.getElementById("instructions").innerHTML = "You got a total of " + round.totalScore + " points. <br /> Type your username in the field below."
 
     //input field för användarnamn
     var usernameInputField = document.createElement("input");
@@ -100,82 +130,73 @@ function gameOver(){
 
 
 //ettor
-var onesScore = 0
 document.getElementById("ones-player1").onclick = function(){
-    handleCategoryClick("ones-player1", onesScore, 0)
+    handleCategoryClick("ones-player1", round.onesScore, 0)
 }
 
 
 //tvåor
-var twosScore = 0
 document.getElementById("twos-player1").onclick = function(){
-    handleCategoryClick("twos-player1", twosScore, 1)
+    handleCategoryClick("twos-player1", round.twosScore, 1)
 }
 
 //treor
-var threesScore = 0
 document.getElementById("threes-player1").onclick = function(){
-    handleCategoryClick("threes-player1", threesScore, 2)
+    handleCategoryClick("threes-player1", round.threesScore, 2)
 }
 
 
 //fyror
-var foursScore = 0
 document.getElementById("fours-player1").onclick = function(){
-    handleCategoryClick("fours-player1", foursScore, 3);
+    handleCategoryClick("fours-player1", round.foursScore, 3);
 }
 
 
 //femor
-var fivesScore = 0
 document.getElementById("fives-player1").onclick = function(){
-    handleCategoryClick("fives-player1", fivesScore, 4);
+    handleCategoryClick("fives-player1", round.fivesScore, 4);
 }
 
 
 //sexor
-var sixesScore = 0
 document.getElementById("sixes-player1").onclick = function(){
-    handleCategoryClick("sixes-player1", sixesScore, 5);
+    handleCategoryClick("sixes-player1", round.sixesScore, 5);
 }
 
 //three of a kind cell onclick
-var threeOfAKindScore = 0
 document.getElementById("three-of-kind-player1").onclick = function(){
-    handleCategoryClick("three-of-kind-player1", threeOfAKindScore, 6);
+    handleCategoryClick("three-of-kind-player1", round.threeOfAKindScore, 6);
 }
 
 
 //four of a kind cell onclick
-var fourOfAKindScore = 0
 document.getElementById("four-of-kind-player1").onclick = function(){
-    handleCategoryClick("four-of-kind-player1", fourOfAKindScore, 7);
+    handleCategoryClick("four-of-kind-player1", round.fourOfAKindScore, 7);
 }
 
 //full house cell onclick
-var fullHouseScore = 0;
 document.getElementById("full-house-player1").onclick = function(){
-    handleCategoryClick("full-house-player1", fullHouseScore, 8);
+    handleCategoryClick("full-house-player1", round.fullHouseScore, 8);
 }
 
-var smallStraightScore = 0;
+
 document.getElementById("small-straight-player1").onclick = function(){
-    handleCategoryClick("small-straight-player1", smallStraightScore, 9);
+    handleCategoryClick("small-straight-player1", round.smallStraightScore, 9);
 }
 
-var largeStraightScore = 0;
+
 document.getElementById("large-straight-player1").onclick = function(){
-    handleCategoryClick("large-straight-player1", largeStraightScore, 10);
+    handleCategoryClick("large-straight-player1", round.largeStraightScore, 10);
 }
 
-var chanceScore = 0;
+
 document.getElementById("chance-player1").onclick = function(){
-    handleCategoryClick("chance-player1", chanceScore, 11);
+    handleCategoryClick("chance-player1", round.chanceScore, 11);
 }
 
-var yahtzeeScore = 0;
+
 document.getElementById("yahtzee-player1").onclick = function(){
-    handleCategoryClick("yahtzee-player1", yahtzeeScore, 12);
+    handleCategoryClick("yahtzee-player1", round.yahtzeeScore, 12);
 }
 
 
@@ -224,82 +245,81 @@ document.getElementById("roll").onclick = function() {
         console.log("currentDices: " + currentDices)
 
 
-        if (state_player1[0] == false) {
-            onesScore = countDicesOfSameValue(currentDices, 1)
-            document.getElementById("ones-player1").innerHTML = displayScore(state_player1[0], onesScore);
+        if (round.scoreCategorySaved[0] == false) {
+            round.onesScore = countDicesOfSameValue(currentDices, 1)
+            document.getElementById("ones-player1").innerHTML = displayScore(round.scoreCategorySaved[0], round.onesScore);
             // console.log(onesScore)
         }
 
 
-
-        if (state_player1[1] == false) {
-            twosScore = countDicesOfSameValue(currentDices, 2)
-            document.getElementById("twos-player1").innerHTML = displayScore(state_player1[1], twosScore);
+        if (round.scoreCategorySaved[1] == false) {
+            round.twosScore = countDicesOfSameValue(currentDices, 2)
+            document.getElementById("twos-player1").innerHTML = displayScore(round.scoreCategorySaved[1], round.twosScore);
             // console.log(twosScore)
         }
 
-        if (state_player1[2] == false){
-            threesScore = countDicesOfSameValue(currentDices, 3)
-            document.getElementById("threes-player1").innerHTML = displayScore(state_player1[2], threesScore);
+        if (round.scoreCategorySaved[2] == false){
+            round.threesScore = countDicesOfSameValue(currentDices, 3)
+            document.getElementById("threes-player1").innerHTML = displayScore(round.scoreCategorySaved[2], round.threesScore);
             // console .log(threesScore)
         }
 
-        if (state_player1[3] == false){
-            foursScore = countDicesOfSameValue(currentDices, 4)
-            document.getElementById("fours-player1").innerHTML = displayScore(state_player1[3], foursScore);
+        if (round.scoreCategorySaved[3] == false){
+            round.foursScore = countDicesOfSameValue(currentDices, 4)
+            document.getElementById("fours-player1").innerHTML = displayScore(round.scoreCategorySaved[3], round.foursScore);
             // console.log(foursScore)
         }
 
-        if (state_player1[4] == false){
-            fivesScore = countDicesOfSameValue(currentDices, 5)
-            document.getElementById("fives-player1").innerHTML = displayScore(state_player1[4], fivesScore);
+        if (round.scoreCategorySaved[4] == false){
+            round.fivesScore = countDicesOfSameValue(currentDices, 5)
+            document.getElementById("fives-player1").innerHTML = displayScore(round.scoreCategorySaved[4], round.fivesScore);
             // console.log(fivesScore)
         }
 
 
-        if (state_player1[5] == false){
-            sixesScore = countDicesOfSameValue(currentDices, 6)
-            document.getElementById("sixes-player1").innerHTML = displayScore(state_player1[5], sixesScore);
+        if (round.scoreCategorySaved[5] == false){
+            round.sixesScore = countDicesOfSameValue(currentDices, 6)
+            document.getElementById("sixes-player1").innerHTML = displayScore(round.scoreCategorySaved[5], round.sixesScore);
             // console.log(sixesScore)
         }
 
-        if (state_player1[6] == false){
-            threeOfAKindScore = checkThreeOfAKind(currentDices)
-            document.getElementById("three-of-kind-player1").innerHTML = displayScore(state_player1[6], threeOfAKindScore)
+        if (round.scoreCategorySaved[6] == false){
+            round.threeOfAKindScore = checkThreeOfAKind(currentDices)
+            document.getElementById("three-of-kind-player1").innerHTML = displayScore(round.scoreCategorySaved[6], round.threeOfAKindScore)
             // console.log(threeOfAKindScore)
         }
 
-        if (state_player1[7] == false){
-            fourOfAKindScore = checkFourOfAKind(currentDices)
-            document.getElementById("four-of-kind-player1").innerHTML = displayScore(state_player1[7], fourOfAKindScore)
+        if (round.scoreCategorySaved[7] == false){
+            round.fourOfAKindScore = checkFourOfAKind(currentDices)
+            document.getElementById("four-of-kind-player1").innerHTML = displayScore(round.scoreCategorySaved[7], round.fourOfAKindScore)
             // console.log(fourOfAKindScore)
         }
 
-        if (state_player1[8] == false){
-            fullHouseScore = checkFullHouse(currentDices)
-            document.getElementById("full-house-player1").innerHTML = displayScore(state_player1[8], fullHouseScore)
+        if (round.scoreCategorySaved[8] == false){
+            round.fullHouseScore = checkFullHouse(currentDices)
+            document.getElementById("full-house-player1").innerHTML = displayScore(round.scoreCategorySaved[8], round.fullHouseScore)
         }
 
-        if (state_player1[9] == false){
-            smallStraightScore = checkSmallStraight(currentDices)
-            document.getElementById("small-straight-player1").innerHTML = displayScore(state_player1[9], smallStraightScore)
+        if (round.scoreCategorySaved[9] == false){
+            round.smallStraightScore = checkSmallStraight(currentDices)
+            document.getElementById("small-straight-player1").innerHTML = displayScore(round.scoreCategorySaved[9], round.smallStraightScore)
             // console.log(smallStraightScore)
         }
 
-        if (state_player1[10] == false){
-            largeStraightScore = checkLargeStraight(currentDices)
-            document.getElementById("large-straight-player1").innerHTML = displayScore(state_player1[10], largeStraightScore)
+        if (round.scoreCategorySaved[10] == false){
+            round.largeStraightScore = checkLargeStraight(currentDices)
+            document.getElementById("large-straight-player1").innerHTML = displayScore(round.scoreCategorySaved[10], round.largeStraightScore)
             // console.log(largeStraighScore)
         }
 
-        if (state_player1[11] == false){
-            chanceScore = checkChance(currentDices)
-            document.getElementById("chance-player1").innerHTML = displayScore(state_player1[11], chanceScore)
+        if (round.scoreCategorySaved[11] == false){
+            round.chanceScore = checkChance(currentDices)
+            document.getElementById("chance-player1").innerHTML = displayScore(round.scoreCategorySaved[11], round.chanceScore)
         }
 
-        if (state_player1[12] == false){
-            yahtzeeScore = checkYahtzee(currentDices)
-            document.getElementById("yahtzee-player1").innerHTML = displayScore(state_player1[12], yahtzeeScore)
+        if (round.scoreCategorySaved[12] == false){
+            round.yahtzeeScore = checkYahtzee(currentDices)
+            document.getElementById("yahtzee-player1").innerHTML = displayScore(round.scoreCategorySaved[12], round.yahtzeeScore)
         }
 
 
