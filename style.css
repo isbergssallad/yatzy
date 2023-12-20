@@ -1,7 +1,17 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+.text-align-center {
+    text-align: center;
+}
+
+.medium-font-size {
+    font-size: 14px;
+}
+
 
 .page-container {
     display: flex;
@@ -47,13 +57,35 @@ th, td {
     justify-content: center;
 }
 
+
 .nav ul {
     display: flex;
     flex-direction: row;
     gap: 10px;
     text-decoration: none;
     list-style-type: none;
+    color:black;
 }
+
+/* hindrar länken från att bli lila när den klickas */
+.nav a{
+    color: black;
+    text-decoration: none;
+}
+
+.nav a:visited {
+    color: inherit;
+}
+
+.nav a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.nav li:hover{
+    transform: translateY(-5px);
+}
+
 
 .main {
     display: flex;
@@ -65,20 +97,29 @@ th, td {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: aqua;
+    background-color: #4e9375;
     width: 800px;
     height: 620px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 2%;
+    border-radius: 20px;
+    border: 2px solid black
 
 }
 
+.table-container table{
+    width: 200px;
+    height: 520px;
+}
+
 .instructions-container {
+    display: flex;
     height: 65px;
     background-color: white;
     border-radius: 10px;
-    border: 1.5px solid black
+    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
 }
 
 .game-board {
@@ -90,10 +131,27 @@ th, td {
 }
 
 .roll-button {
-    width: auto;
-    height: auto;
+    width: 65px;
+    height: 25px;
     padding: 0px 3px;
+    border-radius: 5px;
+    border: 1px solid black;
 }
+
+.btn {
+    width: 65px;
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-size: 15px;
+
+}
+
+.roll-button:hover {
+    transform: translateY(-2px);
+}
+
+
 
 .dice-and-roll-btn{
     display: flex;
@@ -137,7 +195,7 @@ th, td {
 
 .highscore table{
     width: 350px;
-
+    height: auto;
 }
 
 .highscore th {

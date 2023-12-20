@@ -1,7 +1,3 @@
-
-
-
-
 //funktion för triss / tre i rad
 function checkThreeOfAKind(array) {
     for (let i = 0; i < array.length; i++) {

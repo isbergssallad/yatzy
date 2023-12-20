@@ -46,7 +46,7 @@ class GameState{
     //funktion för att räkna ihop ett värde i poängtabellen
     countDicesOfSameValue(value){
         var count = 0;
-        for(i = 0; i < this.currentDices.length; i++){
+        for(let i = 0; i < this.currentDices.length; i++){
             if(this.currentDices[i] == value){count+=value}
         }
         //hindrar det att visa 0 i rutan om inga 2 nollor kastas.

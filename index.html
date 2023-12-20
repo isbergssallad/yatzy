@@ -11,7 +11,6 @@
 <body>
     <div class="page-container">
 
-
         <div class="header">
             <h1 class="header-title">YATZY</h1> 
             <!-- text wiggle with different color relating to yatzy -->
@@ -20,8 +19,12 @@
 
         <div class="nav">
             <ul>
+                <li><a href="">New Game</a></li>
+                <p>|</p>
                 <li><a href="#highscore-table">Highscore</a></li>
+                <p>|</p>
                 <li><a href="#rules">Rules</a></li>
+                <p>|</p>
                 <li><a href="#about">About</a></li>
             </ul>
         </div>
@@ -31,13 +34,12 @@
             <div class="game-container">
                 <div class="game-board"> 
                     <div class="instructions-container">
-                        <p id="instructions"></p>
-
+                        <p id="instructions" class="text-align-center"></p>
                     </div>
                     <div id="play-area">
                     </div>
                     <div class="dice-and-roll-btn">
-                        <button id="roll" class="roll-button">ROLL</button>
+                        <button id="roll" class="roll-button btn">ROLL</button>
                         <div class="dice-container" id="player-container">
                             <div class="dice">
                                 <img src="images/dice1.png" id="die-1" alt="">
@@ -59,71 +61,71 @@
                 </div>
                 <div class="table-container">
                     <table id="score-table" cellspacing="0">
-                        <tr>
+                        <tr class="medium-font-size">
                             <th></th>
-                            <th>Player</th>
+                            <th class="text-align-center">Player</th>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Ones</th>
                             <td id="ones-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Twos</th>
                             <td id="twos-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Threes</th>
                             <td id="threes-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Fours</th>
                             <td id="fours-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Fives</th>
                             <td id="fives-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Sixes</th>
                             <td id="sixes-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Sum</th>
                             <td id="sum-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Bonus</th>
                             <td id="bonus-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Three of a kind</th>
                             <td id="three-of-kind-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Four of a kind</th>
                             <td id="four-of-kind-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Full house</th>
                             <td id="full-house-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Small straight</th>
                             <td id="small-straight-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Large straight</th>
                             <td id="large-straight-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Chance</th>
                             <td id="chance-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Yahtzee</th>
                             <td id="yahtzee-score"></td>
                         </tr>
-                        <tr>
+                        <tr class="medium-font-size">
                             <th>Total</th>
                             <td id="total-score"></td>
                         </tr>
@@ -134,7 +136,7 @@
                 <div class="highscore">
                     <table id="highscore-table">
                         <tr>
-                            <td colspan="2">Highscore</td> 
+                            <th colspan="2" class="text-align-center">Highscores</td> 
                         </tr>
                         <tr>
                             <th id="username-1">1. </th>
@@ -217,6 +219,6 @@
     <script src="script.js"></script>
     <script src="handleDices.js"></script>
     <script src="scoreBoard.js"></script>
-    
+
 </body>
 </html>
