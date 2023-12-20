@@ -58,8 +58,121 @@ class GameState{
         else {
             return count;
         }
+    }
+
+    //funktion för triss / tre i rad
+    checkThreeOfAKind() {
+        for (let i = 0; i < this.currentDices.length; i++) {
+            let count = 1;
+    
+            for (let j = i + 1; j < this.currentDices.length; j++) {
+                if (this.currentDices[i] === this.currentDices[j]) {
+                    count++;
+            
+                    if (count === 3) {
+                        return 12;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    //funktion för fyra i rad
+    checkFourOfAKind() {
+        for (let i = 0; i < this.currentDices.length; i++) {
+            let count = 1;
+        
+            for (let j = i + 1; j < this.currentDices.length; j++) {
+                if (this.currentDices[i] === this.currentDices[j]) {
+                    count++;
+            
+                    if (count === 4) {
+                        return 27;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+
+    //full house eller kåk funktionen
+    checkFullHouse(){
+        var temp = this.currentDices.slice();
+        //sorterar tärningar
+        var value = temp.sort(function(a, b) { return a - b; }).join('');
+        //en if-sats för att jämföra värden och kollar efter kåk
+        if (value[0] == value[1] && value[2] == value[4] || value[0] == value[2] && value[3] == value[4]){
+            return 25;
+        } else {
+            return 0;
+        }
+    }
+
+
+    //liten stegen eller small straight funktion
+    checkSmallStraight(){
+        //använder Set för att ta bort duplicata värde
+        var uniqueValues = new Set(this.currentDices)
+        console.log("unique" + uniqueValues)
+        //konverterar Set tillbaka till array för att kunna sortera och joina ihop värden
+        var uniqueValuesAsArray = Array.from(uniqueValues)
+        var sortedArray = uniqueValuesAsArray.sort(function(a, b) { return a - b; }).join('');
+        console.log("unique sorted" + sortedArray)
+        //if-sats som kollar om den liten stege finns med i sorterad arrayn
+        if (sortedArray.includes("1234") || sortedArray.includes("2345") || sortedArray.includes("3456")) {
+            return 30;
+        } else {
+            return 0;
+        }
+    }
+
+    //stora stegen eller large straight funktion
+    checkLargeStraight() {
+        //skapa en kopia av array som heter temp
+        var temp = this.currentDices.slice(); 
+        //sorterar temp
+        var value = temp.sort(function(a, b) { return a - b; }).join('');
+        //if-sats som kollar om stora stege finns i sorterade arrayn
+        if (value.includes("12345") || value.includes("23456")) {
+            return 40;
+        } else {
+            return 0;
+        }
+    }
+
+    //chans eller chance funktionen
+    checkChance() {
+        let value = 0
+        //räknar ihop alla tärningar
+        for (let i = 0; i < this.currentDices.length; i++) {
+            value += this.currentDices[i]
+        } 
+        return value;
+    }
+
+    //yatzy eller yahtzee funktionen
+    checkYahtzee() {
+        for (let i = 0; i < this.currentDices.length; i++) {
+            let count = 1;
+            //räkna antalet tärningar som matchas dvs. hur många av samma tärning finns det
+            for (let j = i + 1; j < this.currentDices.length; j++) {
+                if (this.currentDices[i] === this.currentDices[j]) {
+                    count++;
+                }
+            }
+            //om antalet tärningar är 5 dvs. spelaren har fått yatzy
+            if (count === 5) {
+                return 50;
+            }
+        }
+        return 0;
+    }
 }
-}
+
+
+
 
 //starta en ny runda av spelet
 var round = new GameState();
@@ -306,41 +419,41 @@ document.getElementById("roll").onclick = function() {
         }
 
         if (round.scoreCategories.threeOfAKind.saved == false){
-            round.scoreCategories.threeOfAKind.score = checkThreeOfAKind(round.currentDices);
+            round.scoreCategories.threeOfAKind.score = round.checkThreeOfAKind();
             document.getElementById("three-of-kind-score").innerHTML = displayScore(round.scoreCategories.threeOfAKind);
             // console.log(threeOfAKindScore)
         }
 
         if (round.scoreCategories.fourOfAKind.saved == false){
-            round.scoreCategories.fourOfAKind.score = checkFourOfAKind(round.currentDices);
+            round.scoreCategories.fourOfAKind.score = round.checkFourOfAKind();
             document.getElementById("four-of-kind-score").innerHTML = displayScore(round.scoreCategories.fourOfAKind);
             // console.log(fourOfAKindScore)
         }
 
         if (round.scoreCategories.fullHouse.saved == false){
-            round.scoreCategories.fullHouse.score = checkFullHouse(round.currentDices);
+            round.scoreCategories.fullHouse.score = round.checkFullHouse();
             document.getElementById("full-house-score").innerHTML = displayScore(round.scoreCategories.fullHouse);
         }
 
         if (round.scoreCategories.smallStraight.saved == false){
-            round.scoreCategories.smallStraight.score = checkSmallStraight(round.currentDices);
+            round.scoreCategories.smallStraight.score = round.checkSmallStraight();
             document.getElementById("small-straight-score").innerHTML = displayScore(round.scoreCategories.smallStraight);
             // console.log(smallStraightScore)
         }
 
         if (round.scoreCategories.largeStraight.saved == false){
-            round.scoreCategories.largeStraight.score = checkLargeStraight(round.currentDices);
+            round.scoreCategories.largeStraight.score = round.checkLargeStraight();
             document.getElementById("large-straight-score").innerHTML = displayScore(round.scoreCategories.largeStraight);
             // console.log(largeStraighScore)
         }
 
         if (round.scoreCategories.chance.saved == false){
-            round.scoreCategories.chance.score = checkChance(round.currentDices);
+            round.scoreCategories.chance.score = round.checkChance();
             document.getElementById("chance-score").innerHTML = displayScore(round.scoreCategories.chance);
         }
 
         if (round.scoreCategories.yahtzee.saved == false){
-            round.scoreCategories.yahtzee.score = checkYahtzee(round.currentDices);
+            round.scoreCategories.yahtzee.score = round.checkYahtzee();
             document.getElementById("yahtzee-score").innerHTML = displayScore(round.scoreCategories.yahtzee);
         }
 
