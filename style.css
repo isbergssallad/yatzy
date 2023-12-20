@@ -213,7 +213,7 @@ th, td {
     display: flex;
     flex-direction: row;
     width: 840px;
-    height: auto;
+    height: 100%;
     justify-content: space-between;
     gap: 20px;
 }
@@ -248,7 +248,34 @@ th, td {
 }
 
 
-.footer{
-    height: 200px;
-    width: 800px;
+
+
+
+@media (max-width: 850px){
+    .game-container {
+        width: 700px;
+    }
+
+    .highscore-rules-container {
+        width: 740px;
+        height: 100%;
+    }
+
+}
+
+
+@media (max-width: 680px){
+    .game-container {
+        width: 520px;
+    }
+
+    .highscore-rules-container {
+        width: 560px;
+    }
+
+    .highscore table {
+        width: 250px;
+    }
+    
+
 }

@@ -43,9 +43,8 @@ class GameState{
         document.getElementById("instructions").innerHTML = "Start the game by clicking 'ROLL'"
 
     }
-    //currentDices kommer från instansen av game state. vilket betyder varje metod som finns inom den kan använda this. i denna fall för att kunna använda currentDices
-    //tar en parameter mindre än förr, förkortning.
-    //funktion för att räkna ihop ett värde i poängtabellen
+
+    //funktion för att räkna ihop poäng av samma tärning, ex tre 1:or
     countDicesOfSameValue(value){
         var count = 0;
         for(let i = 0; i < this.currentDices.length; i++){
@@ -197,6 +196,12 @@ function handleCategoryClick (elementId, score, category){
             const upperSectionCategories = ["ones", "twos", "threes", "fours", "fives", "sixes"];
             if (upperSectionCategories.includes(category)){
                 updateBonus();
+            }
+
+
+            //if-sats för att visa 0 istället för tom sträng
+            if (score == 0){
+                document.getElementById(elementId).innerHTML = score;
             }
             
             //lägger score till i totala poängen
