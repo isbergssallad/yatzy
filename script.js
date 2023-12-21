@@ -178,7 +178,6 @@ class GameState{
         if (upperSectionCategories.every((state) => state.saved === true)){
             for (let i = 0; i < upperSectionCategories.length; i++){
                 round.upperSectionSum += upperSectionCategories[i].score;
-                console.log("upper scores: " + round.upperSectionSum)
             }
 
             document.getElementById("sum-score").innerHTML = round.upperSectionSum;

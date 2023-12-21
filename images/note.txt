@@ -1,0 +1,2 @@
+Bilderna av tärningar är tagna från https://www.geeksforgeeks.org/building-a-dice-game-using-javascript/#discuss
+Användning av bilderna är strikt non-commercial och är endast för utbildningssyfte.

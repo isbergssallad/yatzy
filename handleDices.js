@@ -4,8 +4,10 @@ function diceRoll(min, max) {
 }
 
 
-function rollDice(index) { //funktion för tärningskastet
-    if (round.savedDices[index] == false) { //om tärningen på index i array är falsk
+//funktion för tärningskastet
+function rollDice(index) {
+    //om tärningen på index från parameter är falsk, alltså inte sparad då körs funktionen
+    if (round.savedDices[index] == false) {
         const value = diceRoll(1, 6);
         round.currentDices[index] = value;
         document.getElementById("die-" + (index + 1)).src = "images/dice" + value + ".png";
