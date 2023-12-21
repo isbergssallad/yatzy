@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+.text-bold {
+    font-weight: bold;
+}
+
 .no-select {
     user-select: none
 }

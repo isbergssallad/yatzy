@@ -1,6 +1,4 @@
 class GameState{
-    //metod? funktion som körs när man skapar en ny instans
-    //.this
     constructor(){
         //spelrundan avslutas
         this.ended = false;
@@ -286,10 +284,11 @@ function gameOver(){
     highscoreSubmitButton.className = "btn";
     container.className = "username-input"
     
-
+    //lägger till input field och knappen till container div
     container.appendChild(usernameInputField);
     container.appendChild(highscoreSubmitButton);
 
+    //lägger till container i play-area div, vilket är mellanrummet mellan tärningar och instruktion på spelbrädan
     document.getElementById("play-area").appendChild(container)
 }
 
@@ -398,58 +397,47 @@ document.getElementById("roll").onclick = function() {
         rollDice(4);
 
 
-        console.log(round.savedDices)
-        console.log("round.currentDices: " + round.currentDices)
-
 
         if (round.scoreCategories.ones.saved == false) {
             round.scoreCategories.ones.score = round.countDicesOfSameValue(1);
             document.getElementById("ones-score").innerHTML = displayScore(round.scoreCategories.ones);
-            // console.log(onesScore)
         }
 
 
         if (round.scoreCategories.twos.saved == false) {
             round.scoreCategories.twos.score = round.countDicesOfSameValue(2);
             document.getElementById("twos-score").innerHTML = displayScore(round.scoreCategories.twos);
-            // console.log(twosScore)
         }
 
         if (round.scoreCategories.threes.saved == false){
             round.scoreCategories.threes.score = round.countDicesOfSameValue(3);
             document.getElementById("threes-score").innerHTML = displayScore(round.scoreCategories.threes);
-            // console .log(threesScore)
         }
 
         if (round.scoreCategories.fours.saved == false){
             round.scoreCategories.fours.score = round.countDicesOfSameValue(4);
             document.getElementById("fours-score").innerHTML = displayScore(round.scoreCategories.fours);
-            // console.log(foursScore)
         }
 
         if (round.scoreCategories.fives.saved == false){
             round.scoreCategories.fives.score = round.countDicesOfSameValue(5);
             document.getElementById("fives-score").innerHTML = displayScore(round.scoreCategories.fives);
-            // console.log(fivesScore)
         }
 
 
         if (round.scoreCategories.sixes.saved == false){
             round.scoreCategories.sixes.score = round.countDicesOfSameValue(6);
             document.getElementById("sixes-score").innerHTML = displayScore(round.scoreCategories.sixes);
-            // console.log(sixesScore)
         }
 
         if (round.scoreCategories.threeOfAKind.saved == false){
             round.scoreCategories.threeOfAKind.score = round.checkThreeOfAKind();
             document.getElementById("three-of-kind-score").innerHTML = displayScore(round.scoreCategories.threeOfAKind);
-            // console.log(threeOfAKindScore)
         }
 
         if (round.scoreCategories.fourOfAKind.saved == false){
             round.scoreCategories.fourOfAKind.score = round.checkFourOfAKind();
             document.getElementById("four-of-kind-score").innerHTML = displayScore(round.scoreCategories.fourOfAKind);
-            // console.log(fourOfAKindScore)
         }
 
         if (round.scoreCategories.fullHouse.saved == false){
@@ -460,13 +448,11 @@ document.getElementById("roll").onclick = function() {
         if (round.scoreCategories.smallStraight.saved == false){
             round.scoreCategories.smallStraight.score = round.checkSmallStraight();
             document.getElementById("small-straight-score").innerHTML = displayScore(round.scoreCategories.smallStraight);
-            // console.log(smallStraightScore)
         }
 
         if (round.scoreCategories.largeStraight.saved == false){
             round.scoreCategories.largeStraight.score = round.checkLargeStraight();
             document.getElementById("large-straight-score").innerHTML = displayScore(round.scoreCategories.largeStraight);
-            // console.log(largeStraighScore)
         }
 
         if (round.scoreCategories.chance.saved == false){
@@ -517,6 +503,7 @@ document.getElementById("roll").onclick = function() {
             round.rolls = 3;
             diceSaveReset(); 
             round.didPlayerCheckCell = false;
+            //använder klick() metoden för att hindra extra klick logik fel
             document.getElementById("roll").click();
         }
     }
