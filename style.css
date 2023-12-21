@@ -237,8 +237,16 @@ th, td {
     width: auto;
     height: auto;
     word-wrap: break-word;
-    gap: 10px;
+    gap: 13px;
 }
+
+.rules ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 30px;
+}
+
 
 
 .return-to-top{
@@ -264,7 +272,7 @@ th, td {
 }
 
 
-@media (max-width: 680px){
+@media (max-width: 720px){
     .game-container {
         width: 520px;
     }

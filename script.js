@@ -37,9 +37,14 @@ class GameState{
         //upper section i yatzy är alla från ettor till sexor. dessa variabler håller reda på de poängen och summa av de.
         this.upperSectionSum = 0;
 
+        //variabler som säger hur mycket krävs för att få bonus och hur mycket man får
+        this.bonusThreshold = 63;
+        this.bonusValue = 35;
+
         //variabel för att kolla om spelaren har valt en cell
         this.didPlayerCheckCell = false;
 
+        //instruktion vid spelets start
         document.getElementById("instructions").innerHTML = "Start the game by clicking 'ROLL'"
 
     }
@@ -50,7 +55,7 @@ class GameState{
         for(let i = 0; i < this.currentDices.length; i++){
             if(this.currentDices[i] == value){count+=value}
         }
-        //hindrar det att visa 0 i rutan om inga 2 nollor kastas.
+        //ge 0 poäng om inga tärning av det "value" kastas
         if (count == 0){
             return 0;
         }
@@ -77,7 +82,7 @@ class GameState{
         return 0;
     }
 
-    //funktion för fyra i rad
+    //metod för att räkna fyra i rad
     checkFourOfAKind() {
         for (let i = 0; i < this.currentDices.length; i++) {
             let count = 1;
@@ -96,8 +101,9 @@ class GameState{
     }
 
 
-    //full house eller kåk funktionen
+    //metod för att räkna full house eller kåk
     checkFullHouse(){
+        //skapar en kopia av tärningen
         var temp = this.currentDices.slice();
         //sorterar tärningar
         var value = temp.sort(function(a, b) { return a - b; }).join('');
@@ -110,15 +116,13 @@ class GameState{
     }
 
 
-    //liten stegen eller small straight funktion
+    //metod för att räkna liten stegen eller small straight
     checkSmallStraight(){
         //använder Set för att ta bort duplicata värde
         var uniqueValues = new Set(this.currentDices)
-        console.log("unique" + uniqueValues)
         //konverterar Set tillbaka till array för att kunna sortera och joina ihop värden
         var uniqueValuesAsArray = Array.from(uniqueValues)
         var sortedArray = uniqueValuesAsArray.sort(function(a, b) { return a - b; }).join('');
-        console.log("unique sorted" + sortedArray)
         //if-sats som kollar om den liten stege finns med i sorterad arrayn
         if (sortedArray.includes("1234") || sortedArray.includes("2345") || sortedArray.includes("3456")) {
             return 30;
@@ -127,7 +131,7 @@ class GameState{
         }
     }
 
-    //stora stegen eller large straight funktion
+    //metod för att räkna ut stora stegen eller large straight
     checkLargeStraight() {
         //skapa en kopia av array som heter temp
         var temp = this.currentDices.slice(); 
@@ -141,7 +145,7 @@ class GameState{
         }
     }
 
-    //chans eller chance funktionen
+    //metod för att räkna ut chans eller chance
     checkChance() {
         let value = 0
         //räknar ihop alla tärningar
@@ -151,7 +155,7 @@ class GameState{
         return value;
     }
 
-    //yatzy eller yahtzee funktionen
+    //metod för att räkna ut yatzy eller yahtzee
     checkYahtzee() {
         for (let i = 0; i < this.currentDices.length; i++) {
             let count = 1;
@@ -168,6 +172,29 @@ class GameState{
         }
         return 0;
     }
+
+    //metod för att räkna ihop och kollar om spelaren får ett bonus
+    updateBonus(){
+        const upperSectionCategories = [round.scoreCategories.ones, round.scoreCategories.twos, round.scoreCategories.threes, round.scoreCategories.fours, round.scoreCategories.fives, round.scoreCategories.sixes]
+
+        if (upperSectionCategories.every((state) => state.saved === true)){
+            for (let i = 0; i < upperSectionCategories.length; i++){
+                round.upperSectionSum += upperSectionCategories[i].score;
+                console.log("upper scores: " + round.upperSectionSum)
+            }
+
+            document.getElementById("sum-score").innerHTML = round.upperSectionSum;
+
+            if (round.upperSectionSum >= round.bonusThreshold){
+                document.getElementById("bonus-score").innerHTML = round.bonusValue;
+                round.totalScore += round.bonusValue
+            } else {
+                document.getElementById("bonus-score").innerHTML = 0;
+            }
+        }
+    }
+
+
 }
 
 
@@ -192,10 +219,10 @@ function handleCategoryClick (elementId, score, category){
 
             document.getElementById(elementId).style.backgroundColor = savedColor;
 
-            //kör updateBonus() funktion om kategorin matchar, förhindrar funktionen från att köras vid fel kategorier.
+            //kör metoden updateBonus() funktion om kategorin matchar, förhindrar funktionen från att köras vid fel kategorier.
             const upperSectionCategories = ["ones", "twos", "threes", "fours", "fives", "sixes"];
             if (upperSectionCategories.includes(category)){
-                updateBonus();
+                round.updateBonus();
             }
 
 
@@ -341,23 +368,13 @@ document.getElementById("yahtzee-score").onclick = function(){
 }
 
 
-
+//funktion för att visa poäng på poängtabellen när cellen är inte sparat
 function displayScore(scoreCategory) {
     if (scoreCategory.saved == false && scoreCategory.score == 0){
         return "";
     }
     return scoreCategory.score;
 }
-
-
-//funktion som gör att alla tärningar är inte sparade längre. finns för att hindra spelare från att spara mellan runder. ie spara tärning efter man har valt en cell.
-function diceSaveReset(){
-    for (let i = 0; i < round.savedDices.length; i++){
-        round.savedDices[i] = false;
-        document.getElementById("die-" + (i + 1)).style.filter = "brightness(1)"; 
-    }
-}
-
 
 
 
