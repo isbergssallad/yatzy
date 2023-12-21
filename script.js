@@ -468,27 +468,22 @@ document.getElementById("roll").onclick = function() {
         //tärningarna onclick
         document.getElementById("die-1").onclick = function () {
             handleDiceClick(0);
-            console.log(round.currentDices)
         };
 
         document.getElementById("die-2").onclick = function () {
             handleDiceClick(1);
-            console.log(round.currentDices)
         };
 
         document.getElementById("die-3").onclick = function () {
             handleDiceClick(2);
-            console.log(round.currentDices)
         };
 
         document.getElementById("die-4").onclick = function () {
             handleDiceClick(3);
-            console.log(round.currentDices)
         };
 
         document.getElementById("die-5").onclick = function () {
             handleDiceClick(4);
-            console.log(round.currentDices)
         };
 
         //Minskar antalet tärningskast

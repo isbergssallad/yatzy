@@ -45,7 +45,7 @@ function displayHighscores(){
     for (let i = 0; i < highscoreBoard.length; i++) {
         var entry = highscoreBoard[i];
         var [username, score] = entry.split(' - ');
-        console.log("Username: " + username + ", Score: " + score);
+
         document.getElementById("username-" + (i + 1)).textContent = ( i + 1 ) + ". " + username;
         document.getElementById("highscore-" + (i + 1)).innerHTML = score;
     }
