@@ -253,6 +253,12 @@ th, td {
     font-size: 20px;
     text-decoration: none;
     color: black;
+    padding-bottom: 20px;
+}
+
+.return-to-top:hover{
+    text-decoration: underline;
+    transform: translateY(-2px);
 }
 
 
